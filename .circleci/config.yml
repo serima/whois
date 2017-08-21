@@ -12,6 +12,14 @@ jobs:
         command: go get -v -t -u -f github.com/cee-dub/go-junit-report
 
       - type: shell
+        name: go get
+        command: go get -t -d -v ./...
+
+      - type: shell
+        name: go build
+        command: go build -v
+
+      - type: shell
         name: Run junit
         command: |
           mkdir -p ~/junit

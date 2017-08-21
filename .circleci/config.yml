@@ -6,11 +6,19 @@ jobs:
       - image: circleci/golang:1.8
     steps:
       - checkout
-      - run: go get -v -t -u -f github.com/cee-dub/go-junit-report
-      - run: go get -t -d -v ./...
-      - run: go build -v
+      - run:
+          name: Install JUnit
+          command: go get -v -t -u -f github.com/cee-dub/go-junit-report
+      - run:
+          name: go get
+          command: go get -t -d -v ./...
+      - run:
+          name: go build
+          command: go build -v
       - run: mkdir -p ~/junit
-      - run: (set -o pipefail && go test -v ./... -race | go-junit-report -dir ~/junit)
+      - run:
+          name: Run unit tests
+          command: (set -o pipefail && go test -v ./... -race | go-junit-report -dir ~/junit)
       - store_test_results:
           path: ~/junit
       - store_artifacts:

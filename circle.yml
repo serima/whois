@@ -1,9 +1,18 @@
-dependencies:
-  pre:
-    - rm -rf ~/.go_workspace/src/*/*
-    - go get -v -t -u -f github.com/cee-dub/go-junit-report
+version: 2
+jobs:
+  build:
+    working_directory: ~/.go_workspace/src
+    docker:
+      - image: circleci/golang:1.8
+    steps:
+      - checkout
 
-test:
-  override:
-    - mkdir -p $CIRCLE_TEST_REPORTS/junit
-    - "(set -o pipefail && go test -v ./... -race | go-junit-report -dir $CIRCLE_TEST_REPORTS/junit)"
+      - type: shell
+        name: Install go-junit-report
+        command: go get -v -t -u -f github.com/cee-dub/go-junit-report
+
+      - type: shell
+        name: Run junit
+        command: |
+          mkdir -p $CIRCLE_TEST_REPORTS/junit
+          "(set -o pipefail && go test -v ./... -race | go-junit-report -dir $CIRCLE_TEST_REPORTS/junit)"

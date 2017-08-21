@@ -7,7 +7,6 @@ jobs:
     steps:
       - checkout
       - run: go get -v -t -u -f github.com/cee-dub/go-junit-report
-        name: Install go-junit-report
       - run: go get -t -d -v ./...
       - run: go build -v
       - run: mkdir -p ~/junit

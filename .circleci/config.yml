@@ -15,7 +15,7 @@ jobs:
         name: Run junit
         command: |
           mkdir -p ~/junit
-          "(set -o pipefail && go test -v ./... -race | go-junit-report -dir ~/junit)"
+          (set -o pipefail && go test -v ./... -race | go-junit-report -dir ~/junit)
 
       - store_test_results:
           path: ~/junit

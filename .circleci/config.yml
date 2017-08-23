@@ -18,7 +18,7 @@ jobs:
       - run: mkdir -p ~/junit
       - run:
           name: Run unit tests
-          command: (set -o pipefail && go test -v ./... -race | go-junit-report -dir ~/junit)
+          command: (set -o pipefail && go test -v ./... -race | go-junit-report > ~/junit/whois.xml)
       - store_test_results:
           path: ~/junit
       - store_artifacts:
